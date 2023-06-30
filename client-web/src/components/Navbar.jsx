@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../assets/e-connect-logo.png";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -11,21 +12,14 @@ export default function Navbar() {
         <div className="flex md:order-2">
           <ul className="flex flex-row font-medium p-4 md:p-0 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:text-blue-700 md:p-0 "
-                aria-current="page"
-              >
-                Sign
-              </a>
+            <Link to={"/register/user"}  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">
+              Sign
+            </Link>
             </li>
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
-              >
-                Login
-              </a>
+            <Link to={"/login/user"}  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">
+              Login
+            </Link>
             </li>
           </ul>
           <button
