@@ -4,22 +4,29 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav className="bg-white border-gray-200">
+    <nav className="bg-white border-gray-200 sticky top-0 ml-64">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="" className="flex items-center">
+        <Link to={"/"} className="flex items-center">
           <img src={logo} className="mr-3 w-25 h-20" alt="Flowbite Logo" />
-        </a>
+        </Link>
         <div className="flex md:order-2">
           <ul className="flex flex-row font-medium p-4 md:p-0 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
             <li>
-            <Link to={"/register/user"}  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">
-              Sign
-            </Link>
+              <Link
+                to={"/register"}
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:text-blue-700 md:p-0 "
+                aria-current="page"
+              >
+                Sign
+              </Link>
             </li>
             <li>
-            <Link to={"/login/user"}  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">
-              Login
-            </Link>
+              <Link
+                to={"/login"}
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+              >
+                Login
+              </Link>
             </li>
           </ul>
           <button
@@ -51,21 +58,21 @@ export default function Navbar() {
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
             <li>
-              <a
-                href="#"
+              <Link
+                to={"/"}
                 className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
                 aria-current="page"
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to={"/about"}
                 className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
               >
                 About
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

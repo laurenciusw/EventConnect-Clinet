@@ -50,7 +50,7 @@ export default function HomePage() {
           </button>
         </form>
       </div>
-      {data && data.map((e, i) => <p key={i}>{e}</p>)}
+      {data && data.map((e, i) => <p key={i}>{e.name}</p>)}
     </div>
   );
 }
