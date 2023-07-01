@@ -14,6 +14,5 @@ export const fetchData = (payload) => {
     } catch (error) {
       console.log(error);
     }
-
-  }
-}
+  };
+};
