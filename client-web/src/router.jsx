@@ -8,6 +8,8 @@ import RegisterOrganization from "./pages/Organization/RegisterOrganization";
 import LoginOrganization from "./pages/Organization/LoginOrganization";
 import RegisterUser from "./pages/User/RegisterUser";
 import LoginUser from "./pages/User/LoginUser";
+import FormAddEvent from "./pages/FormAddEvent";
+
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/detail/:id",
         element: <DetailEvent />,
+      },
+      {
+        path: "/form-add-event",
+        element: <FormAddEvent />,
       },
       {
         path: "/register/organization",
