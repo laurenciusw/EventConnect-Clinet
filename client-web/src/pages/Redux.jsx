@@ -5,7 +5,7 @@ import {
   increment,
   incrementByAmount,
 } from "../store/slices/counter";
-import { fetchData } from "../store/actions/counter";
+import { fetchData } from "../store/actions/eventAction";
 
 export default function HomePage() {
   const { value, data } = useSelector((state) => state.counter);

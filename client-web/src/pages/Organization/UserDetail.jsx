@@ -1,4 +1,11 @@
+import { useState } from "react";
+
 export default function UserDetail() {
+  const [status, setStatus] = useState("");
+
+  const onChangeHandler = (e) => {
+    setStatus(e.target.value);
+  };
   return (
     <div className="px-8 sm:ml-64">
       <div className="bg-gray-100 p-4 rounded-md mb-4">
@@ -41,6 +48,23 @@ export default function UserDetail() {
           </div>
           <div className="">
             <img src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+            <select
+              id="underline_select"
+              className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+              value={status}
+              onChange={onChangeHandler}
+            >
+              <option value="" disabled>
+                What would you do with this person?
+              </option>
+              {["OnHold", "Accept", "Reject", "Done"].map((e, i) => {
+                return (
+                  <option value={e} key={i} className="">
+                    {e}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         </div>
       </div>

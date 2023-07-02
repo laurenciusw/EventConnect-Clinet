@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import Card from "../components/Card";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchData } from "../store/actions/counter";
+import { fetchData } from "../store/actions/eventAction";
 
 export default function HomePage() {
-  const { data } = useSelector((state) => state.counter);
+  const { data } = useSelector((state) => state.event);
   const dispatch = useDispatch();
 
   useEffect(() => {
