@@ -9,6 +9,7 @@ import LoginOrganization from "./pages/Organization/LoginOrganization";
 import RegisterUser from "./pages/User/RegisterUser";
 import LoginUser from "./pages/User/LoginUser";
 import FormAddEvent from "./pages/FormAddEvent";
+import ProfileUser from "./pages/User/ProfileUser";
 
 
 const router = createBrowserRouter([
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/detail/:id",
         element: <DetailEvent />,
+      },
+      {
+        path: "/profile",
+        element: <ProfileUser />,
       },
       {
         path: "/form-add-event",
