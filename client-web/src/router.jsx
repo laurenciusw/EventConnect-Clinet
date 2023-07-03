@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
 import Redux from "./pages/Redux";
 import Dashboard from "./pages/Organization/Dashboard";
@@ -8,6 +8,10 @@ import RegisterOrganization from "./pages/Organization/RegisterOrganization";
 import LoginOrganization from "./pages/Organization/LoginOrganization";
 import RegisterUser from "./pages/User/RegisterUser";
 import LoginUser from "./pages/User/LoginUser";
+import FormAddEvent from "./pages/FormAddEvent";
+import ProfileUser from "./pages/User/ProfileUser";
+import FormEditProfile from "./pages/User/FormEditProfile";
+
 import Sidebar from "./components/Sidebar";
 import Events from "./pages/Organization/Events";
 import ListUser from "./pages/Organization/ListUser";
@@ -15,6 +19,9 @@ import UserDetail from "./pages/Organization/UserDetail";
 import TodoList from "./pages/User/TodoList";
 import MyAccount from "./pages/User/MyAccount";
 import UpdateConfirm from "./pages/User/UpdateConfirm"
+
+import Chats from "./pages/Organization/Chats";
+import MyEvents from "./pages/User/MyEvents";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +48,10 @@ const router = createBrowserRouter([
             element: <Events />,
           },
           {
+            path: "/dashboard/chats",
+            element: <Chats />,
+          },
+          {
             path: "/dashboard/events/:id/users",
             element: <ListUser />,
           },
@@ -51,7 +62,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/detail/:id",
+        path: "/events/:id",
         element: <DetailEvent />,
       },
       {
@@ -65,6 +76,17 @@ const router = createBrowserRouter([
       {
         path: "/user/account/confirm",
         element: <UpdateConfirm />,
+
+        path: "/profile",
+        element: <ProfileUser />,
+      },
+      {
+        path: "/profile/edit",
+        element: <FormEditProfile />,
+      },
+      {
+        path: "/form-add-event",
+        element: <FormAddEvent />,
       },
       {
         path: "/register/organization",
@@ -81,6 +103,14 @@ const router = createBrowserRouter([
       {
         path: "/login/user",
         element: <LoginUser />,
+      },
+      {
+        path: "/myevents",
+        element: <MyEvents />,
+        loader: () => {
+          if (!localStorage.access_token) return redirect("/login/user");
+          return null;
+        },
       },
     ],
   },

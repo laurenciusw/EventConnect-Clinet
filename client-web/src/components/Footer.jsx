@@ -2,7 +2,7 @@ import logo from "../assets/e-connect-logo-footer.png";
 
 export default function Footer() {
   return (
-    <footer className="shadow bg-blue-900">
+    <footer className="shadow bg-blue-900 ">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <img src={logo} className="h-12 mr-3" alt="Flowbite Logo" />

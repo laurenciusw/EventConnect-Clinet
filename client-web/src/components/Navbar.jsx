@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav className="bg-white border-gray-200 sticky top-0 ml-64">
+    <nav className="bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to={"/"} className="flex items-center">
           <img src={logo} className="mr-3 w-25 h-20" alt="Flowbite Logo" />
@@ -13,8 +13,17 @@ export default function Navbar() {
           <ul className="flex flex-row font-medium p-4 md:p-0 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
             <li>
               <Link
+                to={"/dashboard"}
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                aria-current="page"
+              >
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link
                 to={"/register"}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:text-blue-700 md:p-0 "
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                 aria-current="page"
               >
                 Sign
@@ -72,6 +81,14 @@ export default function Navbar() {
                 className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
               >
                 About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/myevents"}
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+              >
+                My Events
               </Link>
             </li>
           </ul>
