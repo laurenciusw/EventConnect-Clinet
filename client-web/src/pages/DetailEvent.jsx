@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDataById } from "../store/actions/eventAction";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ModalForm from "../components/ModalForm";
 
 export default function DetailEvent() {
+  const [open, setOpen] = useState(false);
   const { event } = useSelector((state) => state.event);
   const dispatch = useDispatch();
 
@@ -14,9 +16,14 @@ export default function DetailEvent() {
   }, []);
 
   return (
-    <div className="max-w-screen-xl mx-auto h-screen">
+    <div className="max-w-screen-xl mx-auto">
+      <ModalForm open={open} onClose={() => setOpen(false)} />
       <div className="flex ">
-        <div className="max-w-sm w-2/6 h-full bg-white border border-gray-200 rounded-lg shadow my-5 sticky top-32">
+        <div
+          className={`max-w-sm w-2/6 h-full bg-white border border-gray-200 rounded-lg shadow my-5 ${
+            open ? "" : "sticky"
+          } top-32 `}
+        >
           <div className="p-5 flex flex-col justify-between">
             <div>
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
@@ -53,7 +60,10 @@ export default function DetailEvent() {
               <h1>MAP</h1>
             </div>
             <div>
-              <button className="px-4 py-2 bg-blue-900 w-full rounded-md text-white">
+              <button
+                onClick={() => setOpen(true)}
+                className="px-4 py-2 bg-blue-900 w-full rounded-md text-white"
+              >
                 Join Volunteer
               </button>
             </div>
