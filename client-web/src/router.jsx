@@ -10,6 +10,7 @@ import RegisterUser from "./pages/User/RegisterUser";
 import LoginUser from "./pages/User/LoginUser";
 import FormAddEvent from "./pages/FormAddEvent";
 import ProfileUser from "./pages/User/ProfileUser";
+import FormEditProfile from "./pages/User/FormEditProfile";
 
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <ProfileUser />,
+      },
+      {
+        path: "/profile/edit",
+        element: <FormEditProfile />,
       },
       {
         path: "/form-add-event",
