@@ -1,26 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Card() {
+export default function Card({ data }) {
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow my-5">
-      <Link to={"/detail/1"}>
+    <div className="max-w-sm w-96 bg-white border border-gray-200 rounded-lg shadow ">
+      <Link to={`/events/${data.id}`}>
         <img
-          className="rounded-t-lg"
-          src="https://flowbite.com/docs/images/blog/image-1.jpg"
+          className="rounded-t-lg h-56 object-cover w-full"
+          src={data.imageUrl}
           alt=""
         />
         <div className="p-5">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-            Event Name
+            {data.name}
           </h5>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Date
+            {data.startDate}
           </p>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Location
+            {data.location}
           </p>
-          <ul className="flex gap-4">
+          <ul className="flex gap-4 flex-wrap">
+            {/* {data?.Benefits &&              data.Benefits.map((e) => <li key={e.id}>{e.name}</li>)} */}
             <li>Benefit</li>
             <li>Benefit</li>
             <li>Benefit</li>

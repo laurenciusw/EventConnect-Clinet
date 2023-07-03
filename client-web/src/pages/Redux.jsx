@@ -5,7 +5,7 @@ import {
   increment,
   incrementByAmount,
 } from "../store/slices/counter";
-import { fetchData } from "../store/actions/counter";
+import { fetchData } from "../store/actions/eventAction";
 
 export default function HomePage() {
   const { value, data } = useSelector((state) => state.counter);
@@ -50,7 +50,7 @@ export default function HomePage() {
           </button>
         </form>
       </div>
-      {data && data.map((e, i) => <p key={i}>{e}</p>)}
+      {data && data.map((e, i) => <p key={i}>{e.name}</p>)}
     </div>
   );
 }
