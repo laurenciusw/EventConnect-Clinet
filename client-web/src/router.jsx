@@ -16,6 +16,10 @@ import Sidebar from "./components/Sidebar";
 import Events from "./pages/Organization/Events";
 import ListUser from "./pages/Organization/ListUser";
 import UserDetail from "./pages/Organization/UserDetail";
+import TodoList from "./pages/User/TodoList";
+import MyAccount from "./pages/User/MyAccount";
+import UpdateConfirm from "./pages/User/UpdateConfirm"
+
 import Chats from "./pages/Organization/Chats";
 import MyEvents from "./pages/User/MyEvents";
 
@@ -62,6 +66,17 @@ const router = createBrowserRouter([
         element: <DetailEvent />,
       },
       {
+        path: "/event/:id/todolist",
+        element: <TodoList />,
+      },
+      {
+        path: "/user/account",
+        element: <MyAccount />,
+      },
+      {
+        path: "/user/account/confirm",
+        element: <UpdateConfirm />,
+
         path: "/profile",
         element: <ProfileUser />,
       },
