@@ -8,6 +8,10 @@ import RegisterOrganization from "./pages/Organization/RegisterOrganization";
 import LoginOrganization from "./pages/Organization/LoginOrganization";
 import RegisterUser from "./pages/User/RegisterUser";
 import LoginUser from "./pages/User/LoginUser";
+import FormAddEvent from "./pages/FormAddEvent";
+import ProfileUser from "./pages/User/ProfileUser";
+import FormEditProfile from "./pages/User/FormEditProfile";
+
 import Sidebar from "./components/Sidebar";
 import Events from "./pages/Organization/Events";
 import ListUser from "./pages/Organization/ListUser";
@@ -56,6 +60,18 @@ const router = createBrowserRouter([
       {
         path: "/events/:id",
         element: <DetailEvent />,
+      },
+      {
+        path: "/profile",
+        element: <ProfileUser />,
+      },
+      {
+        path: "/profile/edit",
+        element: <FormEditProfile />,
+      },
+      {
+        path: "/form-add-event",
+        element: <FormAddEvent />,
       },
       {
         path: "/register/organization",
