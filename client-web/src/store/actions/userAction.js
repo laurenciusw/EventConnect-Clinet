@@ -1,4 +1,4 @@
-import { setCurrentEvents, setPastEvents, setProfile, setUser } from '../slices/user'
+import { setCheckPass, setCurrentEvents, setPastEvents, setProfile, setUser } from '../slices/user'
 import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3000'
@@ -59,10 +59,30 @@ export const fetchProfile = () => {
         url: BASE_URL + '/api/users',
         headers: { access_token: localStorage.access_token },
       })
-      console.log(data);
+      console.log('test');
       dispatch(setProfile(data))
     } catch (error) {
       console.log(error);
     }
   };
 };
+
+export const verifyAccount = (payload) => {
+  return async (dispatch) => {
+    try {
+      console.log('hello');
+      const { data } = await axios({
+        method: 'POST',
+        url: BASE_URL + '/api/verify',
+        headers: { access_token: localStorage.access_token },
+        data: payload
+      })
+
+      console.log(data, '<<< message')
+      
+      dispatch(setCheckPass(data.message))
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

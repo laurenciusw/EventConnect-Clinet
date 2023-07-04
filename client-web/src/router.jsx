@@ -11,6 +11,7 @@ import LoginUser from "./pages/User/LoginUser";
 import FormAddEvent from "./pages/FormAddEvent";
 import ProfileUser from "./pages/User/ProfileUser";
 import FormEditProfile from "./pages/User/FormEditProfile";
+import FormEditAccount from "./pages/User/FormEditAccount";
 
 import Sidebar from "./components/Sidebar";
 import Events from "./pages/Organization/Events";
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "/user/account/confirm",
         element: <UpdateConfirm />,
+      },
+      {
+        path: "/user/account/edit",
+        element: <FormEditAccount />,
       },
       {
         path: "/profile",
