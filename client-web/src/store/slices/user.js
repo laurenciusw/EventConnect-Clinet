@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
-  isLogin: false,
+  isLogin: localStorage.access_token,
   currentEvents: null,
   pastEvents: null,
+  registeredEvents: null,
   profile: null
 }
 
@@ -21,6 +22,9 @@ export const userSlice = createSlice({
     setPastEvents: (state, action) => {
       state.pastEvents = action.payload
     },
+    setRegisteredEvents: (state, action) => {
+      state.registeredEvents = action.payload
+    },
     setProfile: (state, action) => {
       state.profile = action.payload
     }
@@ -29,7 +33,7 @@ export const userSlice = createSlice({
 
 
 
-export const { setUser, setCurrentEvents, setPastEvents, setProfile } = userSlice.actions
+export const { setUser, setCurrentEvents, setPastEvents, setProfile, setRegisteredEvents } = userSlice.actions
 export default userSlice.reducer
 
 

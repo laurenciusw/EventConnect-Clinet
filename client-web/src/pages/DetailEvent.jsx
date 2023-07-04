@@ -3,6 +3,7 @@ import { fetchDataById } from "../store/actions/eventAction";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ModalForm from "../components/ModalForm";
+import moment from "moment";
 
 export default function DetailEvent() {
   const [open, setOpen] = useState(false);
@@ -43,7 +44,8 @@ export default function DetailEvent() {
                 </span>
               </p>
               <p className="mb-3 font-normal text-gray-400">
-                {event?.startDate} until {event?.endDate}
+                {moment(event?.startDate).format("LL")} until{" "}
+                {moment(event?.endDate).format("LL")}
               </p>
               <p className="mb-3 font-normal text-gray-400">
                 {event?.location}
@@ -56,8 +58,9 @@ export default function DetailEvent() {
                   event.Benefits.map((e) => <li key={e.id}>{e.name}</li>)}
                 <li>Test Benefit</li>
               </ul>
-              <p className="mb-3 font-normal text-gray-400">
-                Registration end date: {event?.registrationDate}
+              <p className="mb-3 font-normal text-red-400">
+                Registration end date:{" "}
+                {moment(event?.registrationDate).format("LL")}
               </p>
             </div>
             <div>
@@ -65,7 +68,9 @@ export default function DetailEvent() {
             </div>
             <div>
               <button
-                onClick={() => setOpen(true)}
+                onClick={() =>
+                  localStorage.role === "Organizer" ? `` : setOpen(true)
+                }
                 className="px-4 py-2 bg-blue-900 w-full rounded-md text-white"
               >
                 Join Volunteer
@@ -76,43 +81,6 @@ export default function DetailEvent() {
         <div className="w-4/6 mx-auto mt-5">
           <img src={event?.imageUrl} alt="" className="w-full" />
           <p className="tracking-wider leading-relaxed">{event?.description}</p>
-          <p className="tracking-wider leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-            dolorum beatae officia rem amet adipisci, quaerat quod commodi
-            magnam cumque inventore non dolores architecto porro voluptate,
-            corrupti ipsa veritatis maiores. Explicabo aliquid molestiae
-            blanditiis asperiores quos! Nemo, quos. Cum voluptates totam laborum
-            consequatur suscipit, voluptatum praesentium ducimus molestias eum
-            eveniet doloribus beatae quaerat asperiores odio delectus culpa,
-            natus aliquid voluptatibus? Veritatis sapiente cupiditate fuga ex
-            perspiciatis voluptas consectetur, mollitia delectus recusandae
-            quidem, provident culpa accusantium ad ab laboriosam molestiae, ea
-            ut maxime veniam tempore. Fugit ex quam dolore animi quia!
-            Voluptates, ex accusantium nulla odit necessitatibus officiis, eaque
-            sint reiciendis cum laudantium tempore fugit. Aut labore odit
-            eveniet incidunt iure culpa. Dolorem doloremque cupiditate
-            laudantium quidem blanditiis officiis, placeat laborum. Aliquam
-            velit repellat laborum, officia sint in rerum, accusamus
-            voluptatibus libero deserunt ipsum minima itaque maiores voluptate,
-            nihil numquam quam aut corrupti? Cum quisquam voluptate eligendi
-            ullam eos ut laborum. Rerum quisquam unde facere et minima vero
-            voluptatem? Temporibus dolore accusantium porro praesentium nostrum
-            a voluptate quia consequatur culpa sit! Quasi assumenda deserunt qui
-            nulla natus, labore cum ut optio? Quia, delectus. Esse sapiente
-            deserunt voluptatum rem perspiciatis doloribus? Ipsam nam, commodi
-            autem qui, iste magni modi est in, eaque nemo nostrum fugiat.
-            Inventore maiores, omnis facere sequi autem perferendis? Aut cumque
-            necessitatibus sint officia aliquam ipsam vero quam beatae itaque
-            illo architecto magni ducimus alias reprehenderit, eveniet corporis
-            culpa aliquid. Perspiciatis ullam quia molestias enim veritatis
-            nihil labore maiores! Ducimus ullam possimus laudantium, saepe
-            voluptate vel officia voluptatibus, nesciunt, modi natus vero magnam
-            non autem tempore? Sint eos veniam accusamus esse? Iusto, porro unde
-            eligendi perspiciatis optio maxime facilis? Sed amet, dolore ex
-            nesciunt aperiam ipsa! Eius ex dolore corrupti hic in culpa
-            perferendis illo enim eos nisi, voluptatibus dolores nihil ipsum
-            facere ea assumenda vero error distinctio dicta.
-          </p>
         </div>
       </div>
     </div>

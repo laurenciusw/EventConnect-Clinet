@@ -4,25 +4,29 @@ import { Link } from "react-router-dom";
 import { getMyListEvent } from "../../store/actions/userAction";
 
 export default function MyEvents() {
-  const [isDefaultPage, setIsDefaultPage] = useState(true);
+  const [page, setPage] = useState("registered");
   const [data, setData] = useState();
-  const { currentEvents, pastEvents } = useSelector((state) => state.user);
+  const { currentEvents, pastEvents, registeredEvents } = useSelector(
+    (state) => state.user
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getMyListEvent());
-  }, [isDefaultPage]);
+  }, [page]);
 
   useEffect(() => {
-    if (isDefaultPage) {
+    if (page === "current") {
       setData(currentEvents);
-    } else {
+    } else if (page === "past") {
       setData(pastEvents);
+    } else if (page === "registered") {
+      setData(registeredEvents);
     }
-  }, [currentEvents]);
+  }, [registeredEvents, currentEvents]);
 
-  const onClickHandler = (boolean) => {
-    setIsDefaultPage(boolean);
+  const onClickHandler = (page) => {
+    setPage(page);
   };
 
   return (
@@ -32,14 +36,37 @@ export default function MyEvents() {
           <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-400 ">
             <li
               className={`mr-2 inline-flex p-6 border-b-2 rounded-t-lg ${
-                isDefaultPage
+                page === "registered"
                   ? "text-blue-900 border-blue-900 group"
                   : "hover:border-gray-200 hover:text-gray-200 group"
               }`}
             >
               <button
                 className="flex items-center"
-                onClick={() => onClickHandler(true)}
+                onClick={() => onClickHandler("registered")}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="w-5 h-5 mr-2 "
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                </svg>
+                Registered Events
+              </button>
+            </li>
+            <li
+              className={`mr-2 inline-flex p-6 border-b-2 rounded-t-lg ${
+                page === "current"
+                  ? "text-blue-900 border-blue-900 group"
+                  : "hover:border-gray-200 hover:text-gray-200 group"
+              }`}
+            >
+              <button
+                className="flex items-center"
+                onClick={() => onClickHandler("current")}
               >
                 <svg
                   aria-hidden="true"
@@ -55,14 +82,14 @@ export default function MyEvents() {
             </li>
             <li
               className={`mr-2 inline-flex p-6 border-b-2 rounded-t-lg ${
-                !isDefaultPage
+                page === "past"
                   ? "text-blue-900 border-blue-900 group"
                   : "hover:border-gray-200 hover:text-gray-200 group"
               }`}
             >
               <button
                 className="flex items-center"
-                onClick={() => onClickHandler(false)}
+                onClick={() => onClickHandler("past")}
               >
                 <svg
                   aria-hidden="true"
@@ -91,13 +118,20 @@ export default function MyEvents() {
                   key={e.id}
                   className="bg-gray-50 p-4 rounded-lg flex justify-between my-5"
                 >
+                  <img
+                    src={e.Event.imageUrl}
+                    alt=""
+                    className="w-44 h-32 object-cover"
+                  />
                   <Link
                     to={`/events/${e.Event.id}`}
-                    className=" items-center w-4/6"
+                    className="flex items-center sm:w-5/6 ps-4"
                   >
                     <div>
-                      <p>{e.Event.name}</p>
-                      <p>{e.JobDesk.name}</p>
+                      <p className="font-bold text-gray-800">{e.Event.name}</p>
+                      <p className="text-gray-500 font-light">
+                        {e.JobDesk.name}
+                      </p>
                     </div>
                   </Link>
                   <div className="flex items-center">

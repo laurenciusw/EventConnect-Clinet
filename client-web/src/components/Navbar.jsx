@@ -12,13 +12,18 @@ export default function Navbar() {
         <div className="flex md:order-2">
           <ul className="flex flex-row font-medium p-4 md:p-0 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
             <li>
-              <Link
-                to={"/dashboard"}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                aria-current="page"
-              >
-                Dashboard
-              </Link>
+              {localStorage.access_token &&
+              localStorage.role === "Organizer" ? (
+                <Link
+                  to={"/dashboard"}
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                  aria-current="page"
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                ""
+              )}
             </li>
             {!localStorage.access_token ? (
               <>
@@ -97,12 +102,17 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link
-                to={"/myevents"}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
-              >
-                My Events
-              </Link>
+              {localStorage.access_token &&
+              localStorage.role === "Volunteer" ? (
+                <Link
+                  to={"/myevents"}
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+                >
+                  My Events
+                </Link>
+              ) : (
+                ""
+              )}
             </li>
           </ul>
         </div>

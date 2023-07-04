@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../store/actions/userAction";
+import { login } from "../store/actions/userAction";
+import { loginOrganizer } from "../store/actions/organizerAction";
 
 export default function LoginUser() {
   const [data, setData] = useState({ email: "", password: "" });
+  const [role, setRole] = useState("Volunteer");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -12,16 +14,28 @@ export default function LoginUser() {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(data));
+    if (role === "Volunteer") {
+      dispatch(login(data));
+    } else {
+      dispatch(loginOrganizer(data));
+    }
   };
 
   useEffect(() => {
-    if (user) {
+    if (localStorage.access_token) {
       navigate("/");
     }
-  }, [user]);
+  }, [localStorage.access_token]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/");
+  //   }
+  // }, [user]);
 
   const onChangeHandler = (e) => {
+    if (e.target.name === "role") {
+      setRole(e.target.value);
+    }
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -32,14 +46,14 @@ export default function LoginUser() {
     <div className="bg-blue-100 h-screen">
       <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
         <div
-          className="flex rounded-lg h-3/6 shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0"
+          className="flex rounded-lg min-h-[50%] shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0"
           // style={{ height: "500px" }}
         >
           <div className="flex flex-col w-full md:w-1/2 p-4">
             <div className="flex flex-col flex-1 justify-center ">
               <div className="w-full mt-4">
                 <form className="w-3/4 mx-auto" onSubmit={onSubmitHandler}>
-                  <div className="mb-8">
+                  <div className="mb-6">
                     <label
                       htmlFor="email"
                       className="block mb-2 text-sm font-medium text-gray-900 "
@@ -56,7 +70,54 @@ export default function LoginUser() {
                       value={data.email}
                     />
                   </div>
-                  <div className="mb-8">
+                  <div className="mb-6">
+                    <label
+                      htmlFor="role"
+                      className="block mb-2 text-sm font-medium text-gray-900 "
+                    >
+                      Login as
+                    </label>
+                    <div className="flex justify-between gap-4">
+                      <div className="w-3/6">
+                        <div className="flex items-center">
+                          <input
+                            id="default-radio-1"
+                            type="radio"
+                            value="Volunteer"
+                            name="role"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange={onChangeHandler}
+                            checked={role === "Volunteer"}
+                          />
+                          <label
+                            htmlFor="default-radio-1"
+                            className="ml-2 text-sm font-medium text-gray-400"
+                          >
+                            Volunteer
+                          </label>
+                        </div>
+                      </div>
+                      <div className="w-3/6">
+                        <input
+                          id="default-radio-2"
+                          type="radio"
+                          value="Organizer"
+                          name="role"
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                          onChange={onChangeHandler}
+                          checked={role === "Organizer"}
+                        />
+                        <label
+                          htmlFor="default-radio-2"
+                          className="ml-2 text-sm font-medium text-gray-400"
+                        >
+                          Organizer
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mb-6">
                     <label
                       htmlFor="password"
                       className="block mb-2 text-sm font-medium text-gray-900 "
@@ -71,6 +132,7 @@ export default function LoginUser() {
                       placeholder="Password"
                       required
                       value={data.password}
+                      autoComplete="false"
                     />
                   </div>
                   <button

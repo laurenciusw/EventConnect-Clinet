@@ -5,10 +5,9 @@ import Dashboard from "./pages/Organization/Dashboard";
 import HomePage from "./pages/Homepage";
 import DetailEvent from "./pages/DetailEvent";
 import RegisterOrganization from "./pages/Organization/RegisterOrganization";
-import LoginOrganization from "./pages/Organization/LoginOrganization";
 import RegisterUser from "./pages/User/RegisterUser";
-import LoginUser from "./pages/User/LoginUser";
-import FormAddEvent from "./pages/FormAddEvent";
+import Login from "./pages/Login";
+import FormAddEvent from "./pages/Organization/FormAddEvent";
 import ProfileUser from "./pages/User/ProfileUser";
 import FormEditProfile from "./pages/User/FormEditProfile";
 
@@ -19,6 +18,7 @@ import UserDetail from "./pages/Organization/UserDetail";
 import TodoList from "./pages/User/TodoList";
 import MyAccount from "./pages/User/MyAccount";
 import UpdateConfirm from "./pages/User/UpdateConfirm";
+import FormEditEvent from "./pages/Organization/FormEditEvent";
 
 import Chats from "./pages/Organization/Chats";
 import MyEvents from "./pages/User/MyEvents";
@@ -38,6 +38,11 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Sidebar />,
+        loader: () => {
+          if (!localStorage.access_token || localStorage.role !== "Organizer")
+            return redirect("/login");
+          return null;
+        },
         children: [
           {
             path: "/dashboard",
@@ -65,7 +70,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/events/:id/edit",
-            element: <FormAddEvent />,
+            element: <FormEditEvent />,
           },
         ],
       },
@@ -98,22 +103,23 @@ const router = createBrowserRouter([
         element: <RegisterOrganization />,
       },
       {
-        path: "/login/organization",
-        element: <LoginOrganization />,
-      },
-      {
         path: "/register/user",
         element: <RegisterUser />,
       },
       {
-        path: "/login/user",
-        element: <LoginUser />,
+        path: "/login",
+        element: <Login />,
+        loader: () => {
+          if (localStorage.access_token) return redirect("/");
+          return null;
+        },
       },
       {
         path: "/myevents",
         element: <MyEvents />,
         loader: () => {
-          if (!localStorage.access_token) return redirect("/login/user");
+          if (!localStorage.access_token || localStorage.role !== "Volunteer")
+            return redirect("/login");
           return null;
         },
       },
