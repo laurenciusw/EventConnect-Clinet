@@ -136,7 +136,9 @@ export default function MyEvents() {
                   </Link>
                   <div className="flex items-center">
                     {e.status === "Accepted" ? (
-                      <Link className="py-2 px-4 bg-blue-900 rounded-md text-white">
+                      <Link
+                        to={`/event/${e.Event.id}/todolist`}
+                       className="py-2 px-4 bg-blue-900 rounded-md text-white">
                         Go to My Todo List
                       </Link>
                     ) : (
