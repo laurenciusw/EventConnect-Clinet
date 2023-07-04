@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { fetchData } from "./eventAction";
 
 const BASE_URL = 'http://localhost:3000'
 
@@ -39,7 +40,22 @@ export const createEvent = (payload) => {
         data: payload,
         headers: { access_token: localStorage.access_token }
       })
-      console.log(data);
+      fetchData()
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const editEvent = (id, payload) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios({
+        method: 'PUT',
+        url: BASE_URL + '/events/' + id,
+        data: payload,
+        headers: { access_token: localStorage.access_token }
+      })
+      fetchData()
     } catch (error) {
       console.log(error);
     }

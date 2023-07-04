@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createEvent } from "../../store/actions/organizerAction";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { editEvent } from "../../store/actions/organizerAction";
+import { fetchDataById } from "../../store/actions/eventAction";
+import { useParams } from "react-router-dom";
+import moment from "moment";
 
 export default function FormEditEvent() {
-  const [jobdesk, setJobdesk] = useState([""]);
-  const [benefit, setBenefit] = useState([""]);
+  const [jobdesk, setJobdesk] = useState([{ name: "", id: "", EventId: "" }]);
+  const [benefit, setBenefit] = useState([{ name: "", id: "", EventId: "" }]);
   const [data, setData] = useState({
     name: "",
     location: "",
@@ -16,8 +19,38 @@ export default function FormEditEvent() {
     category: "",
     status: "",
   });
-
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const { event } = useSelector((state) => state.event);
+
+  useEffect(() => {
+    dispatch(fetchDataById(id));
+  }, []);
+
+  useEffect(() => {
+    console.log(event);
+    if (event) {
+      setData({
+        name: event.name,
+        location: event.location,
+        startDate: moment(event.startDate).format("YYYY-MM-DD"),
+        imageUrl: event.imageUrl,
+        description: event.description,
+        endDate: moment(event.endDate).format("YYYY-MM-DD"),
+        registrationDate: moment(event.registrationDate).format("YYYY-MM-DD"),
+        category: event.category,
+        status: event.status,
+      });
+      if (event.Benefits) {
+        const benefit = event.Benefits.map((e) => e.name);
+        setBenefit(event.Benefits);
+      }
+      if (event.JobDesks) {
+        const jobdesk = event.JobDesks.map((e) => e.name);
+        setJobdesk(event.JobDesks);
+      }
+    }
+  }, [event]);
 
   const handleAddInput = (e, type) => {
     e.preventDefault();
@@ -66,11 +99,10 @@ export default function FormEditEvent() {
     e.preventDefault();
     const payload = {
       ...data,
-      benefit,
-      jobdesk,
+      Benefits: benefit,
+      JobDesks: jobdesk,
     };
-    // console.log(payload);
-    dispatch(createEvent(payload));
+    dispatch(editEvent(event.id, payload));
   };
 
   return (
@@ -280,10 +312,10 @@ export default function FormEditEvent() {
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2"
                           name="jobdesk"
                           onChange={(e) => handleValueChange(e, i, "jobdesk")}
-                          value={data}
+                          value={data.name}
                           required
                         />
-                        {i == 0 ? (
+                        {/* {i == 0 ? (
                           ""
                         ) : (
                           <button
@@ -292,16 +324,16 @@ export default function FormEditEvent() {
                           >
                             remove
                           </button>
-                        )}
+                        )} */}
                       </div>
                     );
                   })}
-                <button
+                {/* <button
                   onClick={(e) => handleAddInput(e, "jobdesk")}
                   className="text-white bg-gray-600 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                 >
                   Add Jobdesk
-                </button>
+                </button> */}
               </div>
               <div className="w-3/6">
                 <label
@@ -319,10 +351,10 @@ export default function FormEditEvent() {
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2"
                           name="benefit"
                           onChange={(e) => handleValueChange(e, i, "benefit")}
-                          value={data}
+                          value={data.name}
                           required
                         />
-                        {i == 0 ? (
+                        {/* {i == 0 ? (
                           ""
                         ) : (
                           <button
@@ -331,23 +363,23 @@ export default function FormEditEvent() {
                           >
                             remove
                           </button>
-                        )}
+                        )} */}
                       </div>
                     );
                   })}
-                <button
+                {/* <button
                   onClick={(e) => handleAddInput(e, "benefit")}
                   className="text-white bg-gray-600 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                 >
                   Add Benefit
-                </button>
+                </button> */}
               </div>
             </div>
             <button
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
-              Submit
+              Edit
             </button>
           </form>
         </div>
