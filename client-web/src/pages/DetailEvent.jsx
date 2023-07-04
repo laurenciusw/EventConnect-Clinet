@@ -17,7 +17,11 @@ export default function DetailEvent() {
 
   return (
     <div className="max-w-screen-xl mx-auto">
-      <ModalForm open={open} onClose={() => setOpen(false)} />
+      <ModalForm
+        open={open}
+        onClose={() => setOpen(false)}
+        JobDesks={event?.JobDesks}
+      />
       <div className="flex ">
         <div
           className={`max-w-sm w-2/6 h-full bg-white border border-gray-200 rounded-lg shadow my-5 ${

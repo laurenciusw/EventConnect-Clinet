@@ -24,7 +24,6 @@ export const fetchDataById = (id) => {
         method: 'GET',
         url: BASE_URL + '/events/' + id
       })
-      console.log(data);
       dispatch(setEvent(data))
     } catch (error) {
       console.log(error);

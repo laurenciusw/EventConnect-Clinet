@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerEvent } from "../store/actions/userAction";
+import { useParams } from "react-router-dom";
 
-export default function ModalForm({ open, onClose }) {
+export default function ModalForm({ open, onClose, JobDesks }) {
   const [data, setData] = useState({
     summary: "",
     JobDeskId: "",
   });
+
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
   const handleOnChange = (e) => {
     setData({
@@ -15,6 +21,7 @@ export default function ModalForm({ open, onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(registerEvent(id, data));
     setData({ summary: "", JobDeskId: "" });
     onClose();
   };
@@ -69,10 +76,10 @@ export default function ModalForm({ open, onClose }) {
             <option value="" disabled>
               What would job do you want?
             </option>
-            {["Job", "Job"].map((e, i) => {
+            {JobDesks?.map((e, i) => {
               return (
-                <option value={e} key={i} className="">
-                  {e}
+                <option value={e.id} key={i} className="">
+                  {e.name}
                 </option>
               );
             })}

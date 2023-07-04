@@ -20,23 +20,36 @@ export default function Navbar() {
                 Dashboard
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/register"}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                aria-current="page"
-              >
-                Sign
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/login"}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
-              >
-                Login
-              </Link>
-            </li>
+            {!localStorage.access_token ? (
+              <>
+                <li>
+                  <Link
+                    to={"/register"}
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                    aria-current="page"
+                  >
+                    Sign
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/login"}
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+                  >
+                    Login
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link
+                  to={""}
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+                >
+                  Logout
+                </Link>
+              </li>
+            )}
           </ul>
           <button
             data-collapse-toggle="navbar-cta"

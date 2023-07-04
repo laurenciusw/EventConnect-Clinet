@@ -59,6 +59,14 @@ const router = createBrowserRouter([
             path: "/dashboard/events/:id/users/:userId",
             element: <UserDetail />,
           },
+          {
+            path: "/dashboard/events/add",
+            element: <FormAddEvent />,
+          },
+          {
+            path: "/dashboard/events/:id/edit",
+            element: <FormAddEvent />,
+          },
         ],
       },
       {
@@ -84,10 +92,6 @@ const router = createBrowserRouter([
       {
         path: "/profile/edit",
         element: <FormEditProfile />,
-      },
-      {
-        path: "/form-add-event",
-        element: <FormAddEvent />,
       },
       {
         path: "/register/organization",

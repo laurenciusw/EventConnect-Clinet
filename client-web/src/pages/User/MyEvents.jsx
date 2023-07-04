@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getMyListEvent } from "../../store/actions/userAction";
 
 export default function MyEvents() {
   const [isDefaultPage, setIsDefaultPage] = useState(true);
+  const [data, setData] = useState();
+  const { currentEvents, pastEvents } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMyListEvent());
+  }, [isDefaultPage]);
+
+  useEffect(() => {
+    if (isDefaultPage) {
+      setData(currentEvents);
+    } else {
+      setData(pastEvents);
+    }
+  }, [currentEvents]);
 
   const onClickHandler = (boolean) => {
     setIsDefaultPage(boolean);
@@ -67,43 +84,45 @@ export default function MyEvents() {
           </ul>
         </div>
         <div id="myTabContent" className="m-5">
-          <div className="bg-gray-50 p-4 rounded-lg flex justify-between my-5">
-            <Link to={"/events/1"} className=" items-center w-4/6">
-              <div>
-                <p>Name Event</p>
-                <p>Job Applied</p>
-              </div>
-            </Link>
-            <div className="flex items-center">
-              <Link className="py-2 px-4 bg-blue-900 rounded-md text-white">
-                Go to My Todo List
-              </Link>
-              <div>
-                <p>
-                  <span className="py-2 px-4 bg-blue-100 rounded-md ml-8">
-                    Accepted
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-gray-50 p-4 rounded-lg flex justify-between my-5">
-            <Link to={"/events/1"} className="items-center w-4/6">
-              <div>
-                <p>Name Event</p>
-                <p>Job Applied</p>
-              </div>
-            </Link>
-            <div className="flex items-center">
-              <div>
-                <p>
-                  <span className="py-2 px-4 bg-red-100 rounded-md ml-8">
-                    Rejected
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
+          {data &&
+            data.map((e) => {
+              return (
+                <div
+                  key={e.id}
+                  className="bg-gray-50 p-4 rounded-lg flex justify-between my-5"
+                >
+                  <Link
+                    to={`/events/${e.Event.id}`}
+                    className=" items-center w-4/6"
+                  >
+                    <div>
+                      <p>{e.Event.name}</p>
+                      <p>{e.JobDesk.name}</p>
+                    </div>
+                  </Link>
+                  <div className="flex items-center">
+                    {e.status === "Accepted" ? (
+                      <Link className="py-2 px-4 bg-blue-900 rounded-md text-white">
+                        Go to My Todo List
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+                    <div>
+                      <p>
+                        <span
+                          className={`py-2 px-4 bg-blue-100 rounded-md ml-8 ${
+                            e.status === "Rejected" ? "bg-red-100" : ""
+                          }`}
+                        >
+                          {e.status}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
