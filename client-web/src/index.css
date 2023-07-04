@@ -22,6 +22,7 @@
 
 #customers tr {
   vertical-align: middle;
+  
 }
 
 #customers {
@@ -91,8 +92,7 @@
   color: white;
   border-radius: 10px;
   margin-right: 10px;
-  margin-bottom: 30px;
-  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .detail-container {
@@ -115,7 +115,7 @@
 }
 
 .action-column {
-  width: 235px;
+  width: 315px;
 }
 
 .todolist-container {
@@ -197,6 +197,7 @@ input[type="checkbox"] {
   margin-left: 435px;
   margin-top: 25px;
   margin-bottom: 25px;
+  padding-left: 10px;
 }
 
 .update-container {
