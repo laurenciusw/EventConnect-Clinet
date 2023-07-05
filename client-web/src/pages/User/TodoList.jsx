@@ -30,8 +30,8 @@ export default function TodoList() {
 
   return (
     <>
-      <h3 className="page-title">My Todo List</h3>
-      <div className="todolist-container">
+      <h3 className="text-center text-2xl font-bold my-5">My Todo List</h3>
+      <div className="todolist-container min-h-screen">
         {todoList?.map((todo, index) => {
           return (
             <div className="todolist" key={index}>

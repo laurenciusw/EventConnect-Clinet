@@ -10,27 +10,21 @@ export default function LoginUser() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    if (role === "Volunteer") {
-      dispatch(login(data));
-    } else {
-      dispatch(loginOrganizer(data));
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      if (role === "Volunteer") {
+        await dispatch(login(data));
+        navigate("/");
+      } else {
+        await dispatch(loginOrganizer(data));
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (localStorage.access_token) {
-      navigate("/");
-    }
-  }, [localStorage.access_token]);
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [user]);
 
   const onChangeHandler = (e) => {
     if (e.target.name === "role") {

@@ -25,10 +25,14 @@ export default function RegisterOrganization() {
     });
   };
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    dispatch(register(data));
-    navigate("/login/organization");
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      await dispatch(register(data));
+      navigate("/login/organization");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

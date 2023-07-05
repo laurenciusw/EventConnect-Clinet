@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createEvent } from "../../store/actions/organizerAction";
+import axios from "axios";
 
 export default function FormAddEvent() {
   const [jobdesk, setJobdesk] = useState([""]);
@@ -39,6 +40,25 @@ export default function FormAddEvent() {
       const inputValue = [...benefit];
       inputValue[i] = e.target.value;
       setBenefit(inputValue);
+    }
+  };
+
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      let { data } = await axios({
+        method: "POST",
+        url: "https://api.imgur.com/3/image",
+        headers: {
+          Authorization: "Client-ID 642fe137809866c",
+        },
+        data: formData,
+      });
+      console.log(data);
+    } catch (error) {
+      console.error("Upload failed!", error);
     }
   };
 
@@ -180,6 +200,8 @@ export default function FormAddEvent() {
                 name="imageUrl"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="Image Event"
+                onChange={handleUpload}
+                accept="image/*"
                 required
               /> */}
               <input

@@ -9,7 +9,9 @@ export default function Test() {
   const [showChatBox, setShowChatBox] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { userList, userPending } = useSelector((state) => state.organizer);
+  const { userList, userPending, allUser } = useSelector(
+    (state) => state.organizer
+  );
 
   useEffect(() => {
     let currentTalkjsUser = localStorage.getItem("currentTalkjsUser");
@@ -26,7 +28,7 @@ export default function Test() {
   const handleClick = (userId) => {
     console.log(userId);
     /* Retrieve the two users that will participate in the conversation */
-    const user = userList.find((user) => user.User.id === userId);
+    const user = allUser.find((user) => user.User.id === userId);
     console.log(user);
     const userObj = {
       id: user.User.id,
@@ -34,17 +36,12 @@ export default function Test() {
       email: user.User.email,
       photoUrl: user.User.profilePicturef,
       role: "Member",
-      info: "Job",
-      welcomeMessage: "Hey there! Love to chat :-)",
     };
-    /* Session initialization code */
     Talk.ready
       .then(() => {
-        /* Create the two users that will participate in the conversation */
         const me = new Talk.User(currentUser);
         const other = new Talk.User(userObj);
 
-        /* Create a talk session if this does not exist. Remember to replace tthe APP ID with the one on your dashboard */
         if (!window.talkSession) {
           window.talkSession = new Talk.Session({
             appId: "t6nxSmNm",
@@ -52,16 +49,13 @@ export default function Test() {
           });
         }
 
-        /* Get a conversation ID or create one */
         const conversationId = Talk.oneOnOneId(me, other);
         const conversation =
           window.talkSession.getOrCreateConversation(conversationId);
 
-        /* Set participants of the conversations */
         conversation.setParticipant(me);
         conversation.setParticipant(other);
 
-        /* Create and mount chatbox in container */
         let chatbox = window.talkSession.createChatbox(conversation);
         chatbox.select(conversation);
         chatbox.mount(document.getElementById("talkjs-container"));
@@ -71,9 +65,10 @@ export default function Test() {
   };
 
   return (
-    <div className="users p-4 sm:ml-64 min-h-screen ">
-      {/* <section className="bg-gray-100 min-h-screen"> */}
-      {/* <div className="max-w-screen-xl flex flex-wrap mx-auto justify-between"></div> */}
+    <div
+      className="users p-4 sm:ml-64 min-h-screen "
+      onClick={() => setShowChatBox(false)}
+    >
       <div className="max-w-screen-xl flex flex-col flex-wrap mx-auto ">
         {userPending.map((user) => (
           <div
@@ -159,7 +154,11 @@ export default function Test() {
             showChatBox ? "sticky" : "hidden"
           }`}
         >
-          <div id="talkjs-container" style={{ height: "400px" }}>
+          <div
+            id="talkjs-container"
+            // style={{ height: "600px", width }}
+            className="fixed bottom-10 right-10 w-1/4 h-2/4"
+          >
             <i></i>
           </div>
         </div>

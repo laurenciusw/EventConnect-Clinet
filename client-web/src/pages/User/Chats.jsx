@@ -1,7 +1,7 @@
 import Talk from "talkjs";
 import { useEffect, useState, useRef } from "react";
 
-export default function Chats() {
+export default function MyChats() {
   const chatboxEl = useRef();
   const [currentUser, setCurrentUser] = useState();
 
@@ -12,7 +12,6 @@ export default function Chats() {
     setCurrentUser(user);
   }, []);
 
-  // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
 
   useEffect(() => {
@@ -33,8 +32,12 @@ export default function Chats() {
   }, [talkLoaded, currentUser]);
 
   return (
-    <div className="p-4 sm:ml-64 min-h-screen">
-      <div style={{ height: 700 }} ref={chatboxEl} className="w-full h-full" />
+    <div className="min-h-screen">
+      <div
+        style={{ height: 700 }}
+        ref={chatboxEl}
+        className="w-full h-full my-4"
+      />
     </div>
   );
 }

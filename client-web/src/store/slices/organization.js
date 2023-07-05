@@ -4,7 +4,8 @@ const initialState = {
   orgEvents: [],
   userList: [],
   userPending: [],
-  user: null
+  user: null,
+  allUser: []
 }
 
 export const organizationSlice = createSlice({
@@ -23,11 +24,14 @@ export const organizationSlice = createSlice({
     setUserDetail: (state, action) => {
       state.user = action.payload
     },
+    setAllUser: (state, action) => {
+      state.allUser = action.payload
+    },
   },
 })
 
 
 
-export const { setOrgEvents, setUserList, setUserPending, setUserDetail } = organizationSlice.actions
+export const { setOrgEvents, setUserList, setUserPending, setUserDetail, setAllUser } = organizationSlice.actions
 export default organizationSlice.reducer
 

@@ -39,7 +39,6 @@ export default function DetailEvent() {
               </h5>
               <p className="my-3 font-normal text-blue-900">
                 <span className="p-2 border border-blue-900 rounded-md">
-                  <span className="mr-2">Logo</span>
                   {event?.category}
                 </span>
               </p>
@@ -62,18 +61,22 @@ export default function DetailEvent() {
                 {moment(event?.registrationDate).format("LL")}
               </p>
             </div>
-            <div>
+            {/* <div>
               <h1>MAP</h1>
-            </div>
+            </div> */}
             <div>
-              <button
-                onClick={() =>
-                  localStorage.role === "Organizer" ? `` : setOpen(true)
-                }
-                className="px-4 py-2 bg-blue-900 w-full rounded-md text-white"
-              >
-                Join Volunteer
-              </button>
+              {localStorage.role === "Organizer" ? (
+                ""
+              ) : (
+                <button
+                  onClick={() =>
+                    !localStorage.access_token ? `` : setOpen(true)
+                  }
+                  className="px-4 py-2 bg-blue-900 w-full rounded-md text-white"
+                >
+                  Join Volunteer
+                </button>
+              )}
             </div>
           </div>
         </div>

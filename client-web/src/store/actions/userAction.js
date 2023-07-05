@@ -1,3 +1,4 @@
+import { redirect } from "react-router-dom";
 import { setCheckPass, setCurrentEvents, setPastEvents, setProfile, setRegisteredEvents, setUser, setTodoList } from '../slices/user'
 import axios from 'axios'
 
@@ -16,9 +17,14 @@ export const login = (payload) => {
       localStorage.setItem("currentTalkjsUser", JSON.stringify(data))
       dispatch(setUser(data.email)) //res kurang
     } catch (error) {
-      console.log(error.name);
+      throw error
     }
   };
+  // return axios({
+  //   method: 'POST',
+  //   url: BASE_URL + '/api/login',
+  //   data: payload
+  // })
 };
 export const register = (payload) => {
   return async (dispatch) => {
@@ -30,7 +36,7 @@ export const register = (payload) => {
       })
       console.log(data, 'data');
     } catch (error) {
-      console.log(error);
+      throw error
     }
   };
 };

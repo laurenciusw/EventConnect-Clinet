@@ -32,7 +32,7 @@ export default function Sidebar() {
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-blue-900 border-e border-gray-500">
           <ul className="space-y-2 font-medium">
-            <li>
+            {/* <li>
               <NavLink
                 to={"/dashboard"}
                 className="flex items-center p-2 text-white hover:text-gray-900 rounded-lg  hover:bg-gray-100 "
@@ -49,7 +49,7 @@ export default function Sidebar() {
                 </svg>
                 <span className="ml-3">Dashboard</span>
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to={"/dashboard/events"}

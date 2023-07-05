@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/e-connect-logo.png";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+  useEffect(() => {}, [localStorage.access_token]);
   return (
     <nav className="bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -15,7 +16,7 @@ export default function Navbar() {
               {localStorage.access_token &&
               localStorage.role === "Organizer" ? (
                 <Link
-                  to={"/dashboard"}
+                  to={"/dashboard/events"}
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                   aria-current="page"
                 >
@@ -29,7 +30,7 @@ export default function Navbar() {
               <>
                 <li>
                   <Link
-                    to={"/register"}
+                    to={"/register/user"}
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                     aria-current="page"
                   >
@@ -48,7 +49,8 @@ export default function Navbar() {
             ) : (
               <li>
                 <Link
-                  to={""}
+                  to={"/"}
+                  onClick={() => localStorage.clear()}
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
                 >
                   Logout
@@ -84,7 +86,7 @@ export default function Navbar() {
           id="navbar-cta"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
-            <li>
+            {/* <li>
               <Link
                 to={"/"}
                 className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
@@ -100,7 +102,7 @@ export default function Navbar() {
               >
                 About
               </Link>
-            </li>
+            </li> */}
             <li>
               {localStorage.access_token &&
               localStorage.role === "Volunteer" ? (

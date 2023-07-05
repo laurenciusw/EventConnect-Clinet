@@ -1,4 +1,4 @@
-import { setOrgEvents, setUserDetail, setUserList, setUserPending } from '../slices/organization'
+import { setAllUser, setOrgEvents, setUserDetail, setUserList, setUserPending } from '../slices/organization'
 import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3000'
@@ -49,6 +49,8 @@ export const getUserList = (id) => {
       let all = data.filter(e => e.status !== 'Pending')
       dispatch(setUserPending(pending))
       dispatch(setUserList(all))
+      dispatch(setAllUser(data))
+      console.log(data);
     } catch (error) {
       console.log(error);
     }

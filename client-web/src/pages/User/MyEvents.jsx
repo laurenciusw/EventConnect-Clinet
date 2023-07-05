@@ -139,22 +139,26 @@ export default function MyEvents() {
                   key={e.id}
                   className="bg-gray-50 p-4 rounded-lg flex justify-between my-5"
                 >
-                  <img
-                    src={e.Event.imageUrl}
-                    alt=""
-                    className="w-44 h-32 object-cover"
-                  />
-                  <Link
-                    to={`/events/${e.Event.id}`}
-                    className="flex items-center sm:w-5/6 ps-4"
-                  >
-                    <div>
-                      <p className="font-bold text-gray-800">{e.Event.name}</p>
-                      <p className="text-gray-500 font-light">
-                        {e.JobDesk.name}
-                      </p>
-                    </div>
-                  </Link>
+                  <div className="flex">
+                    <img
+                      src={e.Event.imageUrl}
+                      alt=""
+                      className="w-44 h-32 object-cover"
+                    />
+                    <Link
+                      to={`/events/${e.Event.id}`}
+                      className="flex items-center sm:w-5/6 ps-4"
+                    >
+                      <div>
+                        <p className="font-bold text-gray-800">
+                          {e.Event.name}
+                        </p>
+                        <p className="text-gray-500 font-light">
+                          {e.JobDesk.name}
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
 
                   <div className="flex items-center">
                     {!e.isClaim && (

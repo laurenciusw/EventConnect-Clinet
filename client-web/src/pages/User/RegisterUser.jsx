@@ -38,10 +38,14 @@ export default function RegisterUser() {
     });
   };
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    dispatch(register(data));
-    navigate("/login/user");
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      await dispatch(register(data));
+      navigate("/login/user");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchProvince = async () => {

@@ -23,6 +23,7 @@ import FormEditEvent from "./pages/Organization/FormEditEvent";
 
 import Chats from "./pages/Organization/Chats";
 import MyEvents from "./pages/User/MyEvents";
+import MyChats from "./pages/User/Chats";
 
 const router = createBrowserRouter([
   {
@@ -89,7 +90,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/chats",
-        element: <Chats />,
+        element: <MyChats />,
       },
       {
         path: "/user/account/confirm",

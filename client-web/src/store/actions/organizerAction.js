@@ -15,7 +15,7 @@ export const loginOrganizer = (payload) => {
       localStorage.role = 'Organizer'
       localStorage.setItem("currentTalkjsUser", JSON.stringify(data))
     } catch (error) {
-      console.log(error);
+      throw error
     }
   };
 };
@@ -28,7 +28,7 @@ export const register = (payload) => {
         data: payload
       })
     } catch (error) {
-      console.log(error);
+      throw error
     }
   };
 };
