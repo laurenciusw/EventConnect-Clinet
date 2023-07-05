@@ -121,7 +121,7 @@ export const fetchTodoList = (eventId) => {
   };
 };
 
-export const updateTodo = (id) => {
+export const updateTodo = (id, payload) => {
   return async (dispatch) => {
     try {
       console.log('masuk');
@@ -129,9 +129,43 @@ export const updateTodo = (id) => {
         method: 'PATCH',
         url: BASE_URL + `/api/todo/${id}`,
         headers: { access_token: localStorage.access_token },
+        data: payload
       })
       console.log('jalan')
-      dispatch(fetchTodoList())
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const claimTodo = (payload) => {
+  return async (dispatch) => {
+    try {
+      console.log('masuk');
+      const { data } = await axios({
+        method: 'POST',
+        url: BASE_URL + `/api/todo`,
+        headers: { access_token: localStorage.access_token },
+        data: payload
+      })
+      console.log('jalan')
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateIsClaim = (UserEventId) => {
+  return async (dispatch) => {
+    try {
+      console.log('Mulai - Update Claim');
+      const { data } = await axios({
+        method: 'PATCH',
+        url: BASE_URL + `/api/users/${UserEventId}`,
+        headers: { access_token: localStorage.access_token },
+        data: {isClaim: true}
+      })
+      console.log('Selesai - Update Claim')
     } catch (error) {
       console.log(error);
     }

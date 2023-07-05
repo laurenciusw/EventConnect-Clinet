@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTodoList } from '../../store/actions/userAction';
+import { fetchTodoList, updateTodo } from '../../store/actions/userAction';
 
 export default function TodoList() {
   let { id } = useParams();
@@ -11,12 +11,24 @@ export default function TodoList() {
   const todoList = useSelector((state) => {
     return state.user.todoList;
   });
+  
+  
+  const handleCheck = (event) => {
+    event.preventDefault();
+    if (event.target.checked) {
+      console.log('AAA', event.target.value)
+      dispatch(updateTodo(event.target.value, {status: true}))
+    } else {
+      console.log('BBB', event.target.value)
+      dispatch(updateTodo(event.target.value, {status: false}))
+    }
+    dispatch(fetchTodoList(id));
+  }
 
   useEffect(() => {
     dispatch(fetchTodoList(id));
     console.log(todoList)
   }, []);
-  
 
   return (
     <>
@@ -24,8 +36,8 @@ export default function TodoList() {
     <div className="todolist-container">
         {todoList?.map((todo, index) => {
             return <div className="todolist" key={index}>
-            <input value={todo.TodoList.name} type="checkbox" />
-            <span className="todocontent">{todo.TodoList.name}</span>
+            <input value={todo.id} checked={todo.status ? true : false} type="checkbox" onChange={handleCheck} />
+            <span className={todo.status? "todo-done" : "todocontent"}>{todo.TodoList.name}</span>
             </div>;
           })}
     </div>
