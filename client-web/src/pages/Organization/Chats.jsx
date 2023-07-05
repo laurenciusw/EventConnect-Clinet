@@ -19,7 +19,7 @@ export default function Chats() {
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
 
-    if (talkLoaded) {
+    if (talkLoaded && currentUser) {
       const me = new Talk.User(currentUser);
       // let currentUser = localStorage.getItem("currentTalkjsUser");
       // currentUser = JSON.parse(currentUser);
@@ -59,7 +59,7 @@ export default function Chats() {
 
       return () => session.destroy();
     }
-  }, [talkLoaded]);
+  }, [talkLoaded, currentUser]);
 
   return (
     <div className="p-4 sm:ml-64 min-h-screen">

@@ -114,7 +114,7 @@ export const fetchTodoList = (eventId) => {
         url: BASE_URL + `/api/mytodo/${eventId}`,
         headers: { access_token: localStorage.access_token },
       })
-      console.log('jalan')
+      console.log('jalan', data)
       dispatch(setTodoList(data))
     } catch (error) {
       console.log(error);
@@ -164,8 +164,9 @@ export const updateIsClaim = (UserEventId) => {
         method: 'PATCH',
         url: BASE_URL + `/api/users/${UserEventId}`,
         headers: { access_token: localStorage.access_token },
-        data: {isClaim: true}
+        data: { isClaim: true }
       })
+      dispatch(getMyListEvent())
       console.log('Selesai - Update Claim')
     } catch (error) {
       console.log(error);
