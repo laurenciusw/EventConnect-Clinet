@@ -140,6 +140,12 @@
   font-size: larger;
 }
 
+.todo-done {
+  margin-left: 25px;
+  font-size: larger;
+  text-decoration: line-through;
+}
+
 input[type="checkbox"] {
   height: 25px;
   width: 25px;

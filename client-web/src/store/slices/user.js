@@ -8,6 +8,7 @@ const initialState = {
   registeredEvents: null,
   profile: null,
   checkPass: null,
+  todoList: null,
 }
 
 export const userSlice = createSlice({
@@ -31,13 +32,16 @@ export const userSlice = createSlice({
     },
     setCheckPass: (state, action) => {
       state.checkPass = action.payload
+    },
+    setTodoList: (state, action) => {
+      state.todoList = action.payload
     }
   },
 })
 
 
 
-export const { setUser, setCurrentEvents, setPastEvents, setProfile, setRegisteredEvents, setCheckPass } = userSlice.actions
+export const { setUser, setCurrentEvents, setPastEvents, setProfile, setRegisteredEvents, setCheckPass, setTodoList } = userSlice.actions
 export default userSlice.reducer
 
 

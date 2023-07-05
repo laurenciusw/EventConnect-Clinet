@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getMyListEvent } from "../../store/actions/userAction";
+import { getMyListEvent, claimTodo, updateIsClaim } from "../../store/actions/userAction";
 
 export default function MyEvents() {
   const [page, setPage] = useState("registered");
@@ -10,6 +10,23 @@ export default function MyEvents() {
     (state) => state.user
   );
   const dispatch = useDispatch();
+
+  const claimTodoHandler = (event) => {
+    event.preventDefault();
+
+    let UserEventId = event.target.value[4]
+
+    let payload = {
+      JobDeskId: event.target.value[0],
+      EventId: event.target.value[2],
+    }
+
+    console.log(UserEventId)
+
+    dispatch(claimTodo(payload));
+    dispatch(updateIsClaim(UserEventId));
+    dispatch(getMyListEvent());
+  }
 
   useEffect(() => {
     dispatch(getMyListEvent());
@@ -134,12 +151,19 @@ export default function MyEvents() {
                       </p>
                     </div>
                   </Link>
+                  
                   <div className="flex items-center">
-                    {e.status === "Accepted" ? (
+                    {!e.isClaim && (<button 
+                  onClick={claimTodoHandler}
+                  value={[e.JobDesk.id, e.Event.id, e.id]}
+                  className="mr-3 py-2 px-4 bg-blue-900 rounded-md text-white"
+                  >Claim Todo List</button>)}
+                  
+                    {e.status === "Accepted" && e.isClaim ? (
                       <Link
                         to={`/event/${e.Event.id}/todolist`}
                        className="py-2 px-4 bg-blue-900 rounded-md text-white">
-                        Go to My Todo List
+                        My Todo List
                       </Link>
                     ) : (
                       ""

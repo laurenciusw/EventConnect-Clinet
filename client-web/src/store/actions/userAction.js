@@ -1,4 +1,4 @@
-import { setCheckPass, setCurrentEvents, setPastEvents, setProfile, setRegisteredEvents, setUser } from '../slices/user'
+import { setCheckPass, setCurrentEvents, setPastEvents, setProfile, setRegisteredEvents, setUser, setTodoList } from '../slices/user'
 import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3000'
@@ -104,3 +104,71 @@ export const verifyAccount = (payload) => {
     }
   };
 }
+
+export const fetchTodoList = (eventId) => {
+  return async (dispatch) => {
+    try {
+      console.log('masuk');
+      const { data } = await axios({
+        method: 'GET',
+        url: BASE_URL + `/api/mytodo/${eventId}`,
+        headers: { access_token: localStorage.access_token },
+      })
+      console.log('jalan')
+      dispatch(setTodoList(data))
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateTodo = (id, payload) => {
+  return async (dispatch) => {
+    try {
+      console.log('masuk');
+      const { data } = await axios({
+        method: 'PATCH',
+        url: BASE_URL + `/api/todo/${id}`,
+        headers: { access_token: localStorage.access_token },
+        data: payload
+      })
+      console.log('jalan')
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const claimTodo = (payload) => {
+  return async (dispatch) => {
+    try {
+      console.log('masuk');
+      const { data } = await axios({
+        method: 'POST',
+        url: BASE_URL + `/api/todo`,
+        headers: { access_token: localStorage.access_token },
+        data: payload
+      })
+      console.log('jalan')
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateIsClaim = (UserEventId) => {
+  return async (dispatch) => {
+    try {
+      console.log('Mulai - Update Claim');
+      const { data } = await axios({
+        method: 'PATCH',
+        url: BASE_URL + `/api/users/${UserEventId}`,
+        headers: { access_token: localStorage.access_token },
+        data: {isClaim: true}
+      })
+      console.log('Selesai - Update Claim')
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
