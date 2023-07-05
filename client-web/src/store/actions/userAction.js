@@ -1,4 +1,4 @@
-import { setCheckPass, setCurrentEvents, setPastEvents, setProfile, setRegisteredEvents, setUser } from '../slices/user'
+import { setCheckPass, setCurrentEvents, setPastEvents, setProfile, setRegisteredEvents, setUser, setTodoList } from '../slices/user'
 import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3000'
@@ -103,3 +103,37 @@ export const verifyAccount = (payload) => {
     }
   };
 }
+
+export const fetchTodoList = (eventId) => {
+  return async (dispatch) => {
+    try {
+      console.log('masuk');
+      const { data } = await axios({
+        method: 'GET',
+        url: BASE_URL + `/api/mytodo/${eventId}`,
+        headers: { access_token: localStorage.access_token },
+      })
+      console.log('jalan')
+      dispatch(setTodoList(data))
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateTodo = (id) => {
+  return async (dispatch) => {
+    try {
+      console.log('masuk');
+      const { data } = await axios({
+        method: 'PATCH',
+        url: BASE_URL + `/api/todo/${id}`,
+        headers: { access_token: localStorage.access_token },
+      })
+      console.log('jalan')
+      dispatch(fetchTodoList())
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
