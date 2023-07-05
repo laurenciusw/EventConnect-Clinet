@@ -17,7 +17,7 @@ export default function DetailEvent() {
   }, []);
 
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <div className="max-w-screen-xl mx-auto min-h-screen">
       <ModalForm
         open={open}
         onClose={() => setOpen(false)}
@@ -56,7 +56,6 @@ export default function DetailEvent() {
               <ul className="flex gap-4 flex-wrap mb-3">
                 {event?.Benefits &&
                   event.Benefits.map((e) => <li key={e.id}>{e.name}</li>)}
-                <li>Test Benefit</li>
               </ul>
               <p className="mb-3 font-normal text-red-400">
                 Registration end date:{" "}

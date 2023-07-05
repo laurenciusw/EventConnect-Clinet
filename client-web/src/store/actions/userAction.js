@@ -13,6 +13,7 @@ export const login = (payload) => {
       })
       localStorage.access_token = data.access_token
       localStorage.role = 'Volunteer'
+      localStorage.setItem("currentTalkjsUser", JSON.stringify(data))
       dispatch(setUser(data.email)) //res kurang
     } catch (error) {
       console.log(error.name);

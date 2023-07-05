@@ -6,7 +6,7 @@ import { destroyEvent } from "../../store/actions/organizationAction";
 export default function EventRow(props) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const { event } = props;
+  const { event, handleAddToDo } = props;
 
   function deleteHandler(e, eventId) {
     e.preventDefault();
@@ -45,7 +45,7 @@ export default function EventRow(props) {
           </button>
           <button
             className="detail-button"
-            onClick={(e) => deleteHandler(e, event.id)}
+            onClick={() => handleAddToDo(event)}
           >
             Add To Do
           </button>

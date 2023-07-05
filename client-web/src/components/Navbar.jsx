@@ -105,6 +105,19 @@ export default function Navbar() {
               {localStorage.access_token &&
               localStorage.role === "Volunteer" ? (
                 <Link
+                  to={"/chats"}
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
+                >
+                  My Chats
+                </Link>
+              ) : (
+                ""
+              )}
+            </li>
+            <li>
+              {localStorage.access_token &&
+              localStorage.role === "Volunteer" ? (
+                <Link
                   to={"/myevents"}
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 "
                 >

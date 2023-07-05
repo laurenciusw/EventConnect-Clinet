@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import EventRow from "./EventRow";
 import ModalToDo from "./ModalToDo";
 
 export default function EventTable(props) {
+  const [open, setOpen] = useState(false);
   const { events } = props;
+
+  const [event, setEvent] = useState();
+
+  const handleAddToDo = (event) => {
+    console.log(event);
+    setEvent(event);
+    setOpen(true);
+  };
   return (
     <>
-      <ModalToDo open={open} onClose={() => setOpen(false)} />
+      <ModalToDo open={open} onClose={() => setOpen(false)} event={event} />
       <table id="customers">
         <thead>
           <tr>
@@ -21,7 +30,14 @@ export default function EventTable(props) {
         </thead>
         <tbody>
           {events.map((event, index) => {
-            return <EventRow event={event} index={index + 1} key={event.id} />;
+            return (
+              <EventRow
+                event={event}
+                index={index + 1}
+                key={event.id}
+                handleAddToDo={handleAddToDo}
+              />
+            );
           })}
         </tbody>
       </table>

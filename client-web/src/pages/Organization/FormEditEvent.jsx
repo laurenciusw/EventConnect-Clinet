@@ -106,11 +106,13 @@ export default function FormEditEvent() {
   };
 
   return (
-    <section className="bg-gray-100">
+    <section className="bg-gray-100 min-h-screen">
       <div className="max-w-screen-xl flex flex-wrap mx-auto justify-between">
-        <div className="mb-5 w-full ml-64 p-4">
+        <div className="mb-5 w-full p-4">
           <form className="mb-4" onSubmit={onSubmitHandler}>
-            <h1 className="text-center my-4 text-bold">Add Event</h1>
+            <h1 className="text-center my-4 text-bold text-lg font-bold">
+              Edit Event
+            </h1>
             <div className="mb-6">
               <label
                 htmlFor="name"
@@ -295,7 +297,7 @@ export default function FormEditEvent() {
                 </select>
               </div>
             </div>
-            <div className="flex justify-between gap-4 mb-6">
+            {/* <div className="flex justify-between gap-4 mb-6">
               <div className="w-3/6">
                 <label
                   htmlFor="jobdesk"
@@ -315,7 +317,7 @@ export default function FormEditEvent() {
                           value={data.name}
                           required
                         />
-                        {/* {i == 0 ? (
+                        {i == 0 ? (
                           ""
                         ) : (
                           <button
@@ -324,16 +326,16 @@ export default function FormEditEvent() {
                           >
                             remove
                           </button>
-                        )} */}
+                        )}
                       </div>
                     );
                   })}
-                {/* <button
+                <button
                   onClick={(e) => handleAddInput(e, "jobdesk")}
                   className="text-white bg-gray-600 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                 >
                   Add Jobdesk
-                </button> */}
+                </button>
               </div>
               <div className="w-3/6">
                 <label
@@ -354,7 +356,7 @@ export default function FormEditEvent() {
                           value={data.name}
                           required
                         />
-                        {/* {i == 0 ? (
+                        {i == 0 ? (
                           ""
                         ) : (
                           <button
@@ -363,18 +365,18 @@ export default function FormEditEvent() {
                           >
                             remove
                           </button>
-                        )} */}
+                        )}
                       </div>
                     );
                   })}
-                {/* <button
+                <button
                   onClick={(e) => handleAddInput(e, "benefit")}
                   className="text-white bg-gray-600 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                 >
                   Add Benefit
-                </button> */}
+                </button>
               </div>
-            </div>
+            </div> */}
             <button
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"

@@ -74,11 +74,13 @@ export default function FormAddEvent() {
   };
 
   return (
-    <section className="bg-gray-100">
+    <section className="bg-gray-100 min-h-screen">
       <div className="max-w-screen-xl flex flex-wrap mx-auto justify-between">
         <div className="mb-5 w-full ml-64 p-4">
           <form className="mb-4" onSubmit={onSubmitHandler}>
-            <h1 className="text-center my-4 text-bold">Add Event</h1>
+            <h1 className="text-center my-4 text-bold text-lg font-bold">
+              Add Event
+            </h1>
             <div className="mb-6">
               <label
                 htmlFor="name"

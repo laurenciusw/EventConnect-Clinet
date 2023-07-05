@@ -4,6 +4,14 @@ import { useEffect, useState, useRef } from "react";
 export default function Chats() {
   // return <div className="p-4 sm:ml-64 min-h-screen">Chats</div>;
   const chatboxEl = useRef();
+  const [currentUser, setCurrentUser] = useState();
+
+  useEffect(() => {
+    let currentTalkjsUser = localStorage.getItem("currentTalkjsUser");
+    // if (currentTalkjsUser) {
+    // }
+    setCurrentUser(JSON.parse(currentTalkjsUser));
+  }, []);
 
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
@@ -12,19 +20,12 @@ export default function Chats() {
     Talk.ready.then(() => markTalkLoaded(true));
 
     if (talkLoaded) {
-      const currentUser = new Talk.User({
-        id: "1843",
-        name: "test",
-        email: "test@test.com",
-        photoUrl: "test.jpg",
-        welcomeMessage: "Hello!",
-        role: "default",
-      });
+      const me = new Talk.User(currentUser);
       // let currentUser = localStorage.getItem("currentTalkjsUser");
       // currentUser = JSON.parse(currentUser);
-      console.log(currentUser, "<<<<<<<<<<<<<<<<");
+      // console.log(currentUser, "<<<<<<<<<<<<<<<<");
       const otherUser = new Talk.User({
-        id: "2",
+        id: "1",
         name: "Jessica Wells",
         email: "jessicawells@example.com",
         photoUrl: "jessica.jpeg",
@@ -43,10 +44,10 @@ export default function Chats() {
 
       const session = new Talk.Session({
         appId: "t6nxSmNm",
-        me: currentUser,
+        me,
       });
 
-      const conversationId = Talk.oneOnOneId(currentUser, otherUser);
+      const conversationId = Talk.oneOnOneId(me, otherUser);
       const conversation = session.getOrCreateConversation(conversationId);
       // conversation.setParticipant(currentUser);
       // conversation.setParticipant(otherUser);

@@ -13,6 +13,7 @@ export const loginOrganizer = (payload) => {
       })
       localStorage.access_token = data.access_token
       localStorage.role = 'Organizer'
+      localStorage.setItem("currentTalkjsUser", JSON.stringify(data))
     } catch (error) {
       console.log(error);
     }
@@ -56,6 +57,22 @@ export const editEvent = (id, payload) => {
         headers: { access_token: localStorage.access_token }
       })
       fetchData()
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const addTodo = (payload) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios({
+        method: 'POST',
+        url: BASE_URL + '/todolists',
+        data: payload,
+        headers: { access_token: localStorage.access_token }
+      })
+      console.log(data);
+      // fetchData()
     } catch (error) {
       console.log(error);
     }

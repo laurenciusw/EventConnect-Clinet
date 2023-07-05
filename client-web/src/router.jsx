@@ -88,6 +88,10 @@ const router = createBrowserRouter([
         element: <MyAccount />,
       },
       {
+        path: "/chats",
+        element: <Chats />,
+      },
+      {
         path: "/user/account/confirm",
         element: <UpdateConfirm />,
       },

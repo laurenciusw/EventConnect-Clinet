@@ -1,28 +1,41 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { addTodo } from "../../store/actions/organizerAction";
 
-export default function ModalToDo({ open, onClose, JobDesks }) {
-  const [data, setData] = useState({
-    EventId: "",
-    JobDeskId: "",
-  });
+export default function ModalToDo({ open, onClose, event }) {
+  const [jobdesk, setJobdesk] = useState("");
+  const [todo, setTodo] = useState([""]);
 
   const dispatch = useDispatch();
-  const { id } = useParams();
 
-  const handleOnChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
+  const handleAddInput = (e) => {
+    e.preventDefault();
+    const newInput = [...todo, ""];
+    setTodo(newInput);
+  };
+
+  const handleValueChange = (e, i) => {
+    const inputValue = [...todo];
+    inputValue[i] = e.target.value;
+    setTodo(inputValue);
+  };
+
+  const handleDeleteInput = (e, i) => {
+    e.preventDefault();
+    const deleteInput = [...todo];
+    deleteInput.splice(i, 1);
+    setTodo(deleteInput);
+  };
+
+  const onChangeHandler = (e) => {
+    setJobdesk(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(registerEvent(id, data));
-    // setData({ summary: "", JobDeskId: "" });
-    onClose();
+    dispatch(addTodo({ name: todo, EventId: event.id, JobDeskId: jobdesk }));
+    // onClose();
   };
 
   const handleCloseModal = () => {
@@ -39,7 +52,7 @@ export default function ModalToDo({ open, onClose, JobDesks }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-white rounded-xl shadow p-6 transition-all ${
+        className={`bg-white rounded-xl shadow p-6 transition-all w-1/6 ${
           open ? "scale-100 opacity-100" : "scale-125 opacity-0"
         }`}
       >
@@ -53,36 +66,57 @@ export default function ModalToDo({ open, onClose, JobDesks }) {
         </div>
 
         <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
-          <label htmlFor="name">Summary</label>
-          <textarea
-            type="text"
-            className="border border-gray-300 rounded px-2 py-1 w-96 mb-2"
-            name="summary"
-            rows={10}
-            cols={25}
-            placeholder="Tell us about you"
-            onChange={handleOnChange}
-            value={data.summary}
-          />
-          <label htmlFor="jobdesk">Jobdesk</label>
+          <label htmlFor="name">To Do</label>
           <select
-            id="underline_select"
-            className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-            onChange={handleOnChange}
-            value={data.JobDeskId}
             name="JobDeskId"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  mb-4"
+            required
+            value={jobdesk}
+            onChange={onChangeHandler}
           >
             <option value="" disabled>
-              What would job do you want?
+              Choose a job
             </option>
-            {JobDesks?.map((e, i) => {
+            {event &&
+              event.JobDesks.map((e) => {
+                return (
+                  <option key={e.id} value={e.id}>
+                    {e.name}
+                  </option>
+                );
+              })}
+          </select>
+          {todo &&
+            todo.map((data, i) => {
               return (
-                <option value={e.id} key={i} className="">
-                  {e.name}
-                </option>
+                <div className="flex gap-4" key={i}>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2"
+                    name="benefit"
+                    onChange={(e) => handleValueChange(e, i)}
+                    value={data}
+                    required
+                  />
+                  {i == 0 ? (
+                    ""
+                  ) : (
+                    <button
+                      onClick={(e) => handleDeleteInput(e, i)}
+                      className="text-red-500"
+                    >
+                      remove
+                    </button>
+                  )}
+                </div>
               );
             })}
-          </select>
+          <button
+            onClick={(e) => handleAddInput(e)}
+            className="text-white bg-gray-600 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Add Todo
+          </button>
           <div className="flex justify-end mt-4">
             <button
               type="submit"
